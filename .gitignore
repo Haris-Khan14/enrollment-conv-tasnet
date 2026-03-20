@@ -1,0 +1,10 @@
+cat > .gitignore << 'EOF'
+__pycache__/
+*.pyc
+*.pth
+*.wav
+outputs/
+outputs_2/
+realtime_outputs/
+dataset_split/
+EOF
