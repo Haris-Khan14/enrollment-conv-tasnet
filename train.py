@@ -10,9 +10,7 @@ def main():
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    # ------------------------
-    # Hyperparameters
-    # ------------------------
+ 
     BATCH_SIZE = 2
     EPOCHS = 30
     MAX_STEPS_PER_EPOCH = 2000
@@ -20,9 +18,7 @@ def main():
     CLIP_NORM = 5.0
     SAVE_PATH = "best_model.pth"
 
-    # ------------------------
-    # Dataset
-    # ------------------------
+
     train_set = SpeakerExtractionDataset("dataset_split/train")
     val_set = SpeakerExtractionDataset("dataset_split/val")
 
@@ -41,9 +37,7 @@ def main():
         pin_memory=True
     )
 
-    # ------------------------
-    # Model
-    # ------------------------
+   
     model = ConditionedConvTasNet()
 
     model.convtasnet.to(device)
@@ -57,9 +51,7 @@ def main():
 
     best_val_loss = float("inf")
 
-    # ------------------------
-    # Resume Support
-    # ------------------------
+
 
     if os.path.exists(SAVE_PATH):
         checkpoint = torch.load(SAVE_PATH)
@@ -67,9 +59,7 @@ def main():
         model.film_layers.load_state_dict(checkpoint["film_layers"])
         print("✔ Loaded previous checkpoint")
 
-    # ------------------------
-    # Training Loop
-    # ------------------------
+  
     for epoch in range(EPOCHS):
 
         model.train()
@@ -107,7 +97,7 @@ def main():
 
         avg_train_loss = total_train_loss / step_count
 
-        # ===== VALIDATION =====
+     
         model.eval()
         total_val_loss = 0
         val_steps = 0
